@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Recipe Finder App</string>
+    <string name="allInOneRecipeApiUrl">https://all-in-one-recipe-api.p.rapidapi.com</string>
+</resources>
