@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="textViewSize">20sp</dimen>
+    <dimen name="textViewTitleSize">30sp</dimen>
     <dimen name="RadioButtonTextSize">20sp</dimen>
 </resources>

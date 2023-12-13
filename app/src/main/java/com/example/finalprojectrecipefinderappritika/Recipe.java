@@ -2,27 +2,46 @@ package com.example.finalprojectrecipefinderappritika;
 
 import android.graphics.Bitmap;
 
-import java.lang.reflect.Array;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 
+@Entity
 public class Recipe {
 
+    @PrimaryKey
+    private int recipeID;
     private String recipeName;
     private String category;
     private String cuisine;
-    private String[] time;
+    private String time;
     private ArrayList<String> ingredients;
     private ArrayList<String> directions;
     private ArrayList<String> nutrition;
-    Bitmap recipeImage;
+    private Bitmap recipeImage;
+    private String recipeDescription;
 
-
-    public Recipe(String recipeName, String category, String cuisine) {
-        this.recipeName = recipeName;
-        this.category = category;
-        this.cuisine = cuisine;
+    public String getRecipeDescription() {
+        return recipeDescription;
     }
 
+    public void setRecipeDescription(String recipeDescription) {
+        this.recipeDescription = recipeDescription;
+    }
+
+    public Recipe(int recipeID, String recipeName) {
+        this.recipeID = recipeID;
+        this.recipeName = recipeName;
+    }
+
+    public int getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(int recipeID) {
+        this.recipeID = recipeID;
+    }
     public String getRecipeName() {
         return recipeName;
     }
@@ -47,32 +66,60 @@ public class Recipe {
         this.cuisine = cuisine;
     }
 
-    public String[] getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(String[] time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public ArrayList<String> getIngredients() {
-        return ingredients;
+    public String getIngredientsString() {
+
+        String ingredientsString = "";
+        for (String line:ingredients) {
+            ingredientsString = ingredientsString+line+"\n";
+
+        }
+        return ingredientsString;
     }
 
     public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
     }
 
+    public ArrayList<String> getIngredients() {
+        return ingredients;
+    }
+
     public ArrayList<String> getDirections() {
         return directions;
+    }
+
+    public ArrayList<String> getNutrition() {
+        return nutrition;
+    }
+
+    public String getDirectionsString() {
+        String directionsString = "";
+        for (String line:directions) {
+            directionsString = directionsString+line+"\n";
+
+        }
+        return directionsString;
     }
 
     public void setDirections(ArrayList<String> directions) {
         this.directions = directions;
     }
 
-    public ArrayList<String> getNutrition() {
-        return nutrition;
+    public String getNutritionString() {
+        String nutritionString = "";
+        for (String line:nutrition) {
+            nutritionString = nutritionString+line+"\n";
+
+        }
+        return nutritionString;
     }
 
     public void setNutrition(ArrayList<String> nutrition) {
@@ -86,7 +133,5 @@ public class Recipe {
     public void setRecipeImage(Bitmap recipeImage) {
         this.recipeImage = recipeImage;
     }
-
-
 
 }

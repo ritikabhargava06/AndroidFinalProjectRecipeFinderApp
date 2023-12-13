@@ -16,8 +16,19 @@
         android:theme="@style/Theme.FinalProjectRecipeFinderAppRitika"
         tools:targetApi="31">
         <activity
+            android:name=".RecipeDetailsActivity"
+            android:exported="false" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+
+        <activity
             android:name=".searchRecipeActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
