@@ -14,7 +14,26 @@ public class MyApp extends Application {
    NetworkingManager networkingManager;
    DatabaseManager dataBaseManager;
 
-   static JsonManager jsonManager = new JsonManager();
+   FireStoreManager fireStoreManager;
+
+    public FireStoreManager getFireStoreManager() {
+        if(fireStoreManager==null)
+            fireStoreManager = new FireStoreManager();
+        return fireStoreManager;
+    }
+
+    int dataSource;   //1 - Room DB
+                    //2 - fire store
+
+    public int getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(int dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    static JsonManager jsonManager = new JsonManager();
 
     public DatabaseManager getDataBaseManager() {
         if (dataBaseManager==null)

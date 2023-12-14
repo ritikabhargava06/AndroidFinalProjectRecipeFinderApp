@@ -9,20 +9,22 @@
 
     <TextView
         android:id="@+id/recipeDetailsRecipeName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Recipe Name"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/recipeDetailsImage"
+        app:layout_constraintEnd_toStartOf="@id/guideline5"
         app:layout_constraintBottom_toTopOf="@id/guideline4"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         />
 
     <ImageView
         android:id="@+id/recipeDetailsImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintStart_toEndOf="@id/guideline5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +34,7 @@
 
     <TextView
         android:id="@+id/recipeDetailsCategory"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Catergory:"
         android:textSize="15sp"
@@ -40,11 +42,12 @@
         app:layout_constraintTop_toBottomOf="@id/guideline4"
         app:layout_constraintBottom_toTopOf="@id/guideline1"
         app:layout_constraintEnd_toStartOf="@id/recipeDetailsCuisine"
+        android:layout_marginStart="10dp"
         />
 
     <TextView
         android:id="@+id/recipeDetailsCuisine"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Cuisine:"
         android:textSize="15sp"
@@ -57,7 +60,7 @@
     
     <TextView
         android:id="@+id/RecipeDetailsPrepTime"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:text="Prep Time:"
@@ -65,11 +68,12 @@
         app:layout_constraintTop_toBottomOf="@id/guideline1"
         app:layout_constraintBottom_toTopOf="@id/guideline3"
         app:layout_constraintEnd_toStartOf="@id/RecipeDetailsNutrition"
+        android:layout_marginStart="10dp"
         />
 
     <TextView
         android:id="@+id/RecipeDetailsNutrition"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:text="Nutrition:"

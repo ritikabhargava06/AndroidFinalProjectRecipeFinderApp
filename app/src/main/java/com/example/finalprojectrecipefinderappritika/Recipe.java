@@ -3,6 +3,7 @@ package com.example.finalprojectrecipefinderappritika;
 import android.graphics.Bitmap;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
@@ -21,6 +22,17 @@ public class Recipe {
     private ArrayList<String> nutrition;
     private Bitmap recipeImage;
     private String recipeDescription;
+
+    public String getDocumentID() {
+        return documentID;
+    }
+
+    public void setDocumentID(String documentID) {
+        this.documentID = documentID;
+    }
+
+    @Ignore
+    private String documentID;
 
     public String getRecipeDescription() {
         return recipeDescription;
