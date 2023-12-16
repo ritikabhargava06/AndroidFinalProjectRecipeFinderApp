@@ -51,15 +51,8 @@ public class Recipe {
         return recipeID;
     }
 
-    public void setRecipeID(int recipeID) {
-        this.recipeID = recipeID;
-    }
     public String getRecipeName() {
         return recipeName;
-    }
-
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
     }
 
     public String getCategory() {
@@ -86,16 +79,6 @@ public class Recipe {
         this.time = time;
     }
 
-    public String getIngredientsString() {
-
-        String ingredientsString = "";
-        for (String line:ingredients) {
-            ingredientsString = ingredientsString+line+"\n";
-
-        }
-        return ingredientsString;
-    }
-
     public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
     }
@@ -111,16 +94,6 @@ public class Recipe {
     public ArrayList<String> getNutrition() {
         return nutrition;
     }
-
-    public String getDirectionsString() {
-        String directionsString = "";
-        for (String line:directions) {
-            directionsString = directionsString+line+"\n";
-
-        }
-        return directionsString;
-    }
-
     public void setDirections(ArrayList<String> directions) {
         this.directions = directions;
     }

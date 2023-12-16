@@ -19,13 +19,11 @@ public class Converters {
             Type listType = new TypeToken<ArrayList<String>>() {}.getType();
             return new Gson().fromJson(value, listType);
         }
-
         @TypeConverter
         public static String fromArrayList(ArrayList<String> list) {
             Gson gson = new Gson();
             return gson.toJson(list);
         }
-
         @TypeConverter
         public static String fromBitmapToBase64(Bitmap image)
         {
@@ -34,11 +32,9 @@ public class Converters {
             byte[] b = baos.toByteArray();
             return Base64.encodeToString(b,Base64.DEFAULT);
         }
-
         @TypeConverter
         public static Bitmap fromBase64toBitMap(String imageString){
             byte[] imageBytes = Base64.decode(imageString, Base64.DEFAULT);
-            //image.setImageBitmap(decodedImage);
             return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         }
 }

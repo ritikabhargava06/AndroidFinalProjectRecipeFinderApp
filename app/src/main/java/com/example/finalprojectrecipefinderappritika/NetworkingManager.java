@@ -7,7 +7,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class NetworkingManager {
@@ -45,7 +44,6 @@ interface NetworkingManagerInterfaceListener{
                     MyApp.handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            //Log.d("data from api",buffer.toString());
                            listener.finishAPICallwithJsonString(buffer.toString());
                         }
                     });
@@ -104,10 +102,6 @@ interface NetworkingManagerInterfaceListener{
         String urlStr = urlString+recipeName;
         String HOST = "worldwide-recipes1.p.rapidapi.com";
         Bitmap imgBitmap;
-
-        //MyApp.executorService.execute(new Runnable() {
-           // @Override
-           // public void run() {
                 HttpURLConnection httpURLConnection = null;
                 try {
                     int value;
@@ -126,22 +120,12 @@ interface NetworkingManagerInterfaceListener{
                     InputStream is;
                     is = (InputStream) new URL(imgURL).getContent();
                     imgBitmap = BitmapFactory.decodeStream(is);
-//                    MyApp.handler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Log.d("Recipe Name Data",buffer.toString());
-//                            listener.finishWorldWideAPIwithJSONString(buffer.toString());
-//                        }
-//                    });
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } finally {
                     assert httpURLConnection != null;
                     httpURLConnection.disconnect();
                 }
-           // }
-       // });
-
         return imgBitmap;
     }
 }

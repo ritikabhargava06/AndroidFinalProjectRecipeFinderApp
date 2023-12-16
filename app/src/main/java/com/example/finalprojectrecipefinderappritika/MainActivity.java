@@ -11,8 +11,10 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements DatabaseManager.D
                 public void onClick(DialogInterface dialog, int which) {
                     ((MyApp)getApplication()).setDataSource(2);
                     mainActivityFSManager.getAllRecipesFromFireStoreInBGThread();
-                    //getDataFromFireStore
                 }
             });
             builder.create().show();
@@ -96,9 +97,6 @@ public class MainActivity extends AppCompatActivity implements DatabaseManager.D
         super.onResume();
         mainActivityDbManager.listener = this;
         mainActivityFSManager.listener =this;
-//        if(adapter!=null && adapter.listener!=this){
-//            adapter.listener=this;
-//        }
 
         if(((MyApp)getApplication()).getDataSource()==1)
             mainActivityDbManager.getAllRecipesInBackgroundThread();
@@ -145,5 +143,34 @@ public class MainActivity extends AppCompatActivity implements DatabaseManager.D
     @Override
     public void finishFireStoreWithRecipe(Recipe r) {
         //no need of implementation here
+    }
+
+    @Override
+    public void finishFireStoreWithUpdating(boolean b) {
+//        if(b)
+//            Toast.makeText(MainActivity.this,"Recipe deleted from FireStore",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.firestoremenuoption:
+                ((MyApp)getApplication()).setDataSource(2);
+                mainActivityFSManager.getAllRecipesFromFireStoreInBGThread();
+                return true;
+            case R.id.roomdbmenuoption:
+                ((MyApp)getApplication()).setDataSource(1);
+                mainActivityDbManager.getAllRecipesInBackgroundThread();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

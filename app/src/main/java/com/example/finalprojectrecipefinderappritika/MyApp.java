@@ -3,7 +3,6 @@ package com.example.finalprojectrecipefinderappritika;
 import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -13,7 +12,6 @@ public class MyApp extends Application {
     static ExecutorService executorService = Executors.newFixedThreadPool(4);
    NetworkingManager networkingManager;
    DatabaseManager dataBaseManager;
-
    FireStoreManager fireStoreManager;
 
     public FireStoreManager getFireStoreManager() {
@@ -21,7 +19,6 @@ public class MyApp extends Application {
             fireStoreManager = new FireStoreManager();
         return fireStoreManager;
     }
-
     int dataSource;   //1 - Room DB
                     //2 - fire store
 

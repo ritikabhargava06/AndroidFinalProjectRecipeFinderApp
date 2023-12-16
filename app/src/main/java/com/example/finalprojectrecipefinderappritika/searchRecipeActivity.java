@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class searchRecipeActivity extends AppCompatActivity implements NetworkingManager.NetworkingManagerInterfaceListener,
-        RecipeListRecyclerAdapter.RecyclerViewInterfaceListener, RecipeDialogFragment.RecipeFragmentListener, DatabaseManager.DatabaseManagerListener{
+        RecipeListRecyclerAdapter.RecyclerViewInterfaceListener, RecipeDialogFragment.RecipeFragmentListener,
+        DatabaseManager.DatabaseManagerListener, FireStoreManager.FireStoreManagerInterfaceListener{
 
     RadioButton categoryRadioButton;
     RadioButton cuisineRadioButton;
@@ -32,6 +33,7 @@ public class searchRecipeActivity extends AppCompatActivity implements Networkin
     String searchCriteria="";
     NetworkingManager networkingManager;
     DatabaseManager dbManager;
+    FireStoreManager searchActivityFSManager;
     ArrayList<String> spinnerAdapterDataList = new ArrayList<>();
     ArrayList<Recipe> recyclerAdapterDataList = new ArrayList<>();
     ArrayList<Recipe> searchedRecipeList = new ArrayList<>();
@@ -57,8 +59,10 @@ public class searchRecipeActivity extends AppCompatActivity implements Networkin
         networkingManager.listener = this;
 
         dbManager = ((MyApp)getApplication()).getDataBaseManager();
-        //dbManager.getDb(this);
         dbManager.listener = this;
+
+        searchActivityFSManager = ((MyApp)getApplication()).getFireStoreManager();
+        searchActivityFSManager.listener=this;
 
         categoryRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -101,9 +105,7 @@ public class searchRecipeActivity extends AppCompatActivity implements Networkin
         searchRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //notify user to select a criteria first
                 if (!searchCriteria.isEmpty()){
-                    //call api to get recipe list
                     searchButtonClicked = true;
                     String criteria = searchCriteria+"/"+searchCriteriaType;
                     networkingManager.getDataFromAllInOneRecipeApiWith(criteria);
@@ -129,7 +131,6 @@ public class searchRecipeActivity extends AppCompatActivity implements Networkin
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //filter the available list with keyword and refresh adapter with new list
                 if(newText.length()>3){
                     ArrayList<Recipe> list = new ArrayList<>();
                     for (Recipe r:searchedRecipeList) {
@@ -146,7 +147,6 @@ public class searchRecipeActivity extends AppCompatActivity implements Networkin
                     recyclerAdapter.listener = searchRecipeActivity.this;
                     searchedRecipesListView.setLayoutManager(new LinearLayoutManager(searchRecipeActivity.this));
                     searchedRecipesListView.setAdapter(recyclerAdapter);
-                    //recyclerAdapter.notifyDataSetChanged();
                 }
                 return false;
             }
@@ -172,7 +172,6 @@ public class searchRecipeActivity extends AppCompatActivity implements Networkin
                 searchedRecipesListView.setAdapter(recyclerAdapter);
         }else{
             spinnerAdapterDataList = MyApp.jsonManager.convertJsonToCriteriaList(searchCriteria,jsonString);
-            //spinnerAdapter.notifyDataSetChanged();
             spinnerAdapter = new ArrayAdapter<>(this,R.layout.criteria_spinner_row,R.id.spinnerRowText,spinnerAdapterDataList);
             criteriaSpinner.setAdapter(spinnerAdapter);
         }
@@ -194,16 +193,18 @@ public class searchRecipeActivity extends AppCompatActivity implements Networkin
 
     @Override
     public void saveSelectedRecipe(Recipe recipe) {
-        //update code to add recipe in firestore based on data source
-        dbManager.addRecipeInBGThread(recipe);
+        if (((MyApp)getApplication()).getDataSource()==1)
+            dbManager.addRecipeInBGThread(recipe);
+        else if(((MyApp)getApplication()).getDataSource()==2)
+            searchActivityFSManager.addOneRecipeToFireStoreInBGThread(recipe);
     }
 
     @Override
     public void notifyIfRecipeAdded(boolean flag) {
         if(flag){
-            Toast.makeText(searchRecipeActivity.this,"Recipe has been added to your Favorites list",Toast.LENGTH_LONG).show();
+            Toast.makeText(searchRecipeActivity.this,selectedRecipe.getRecipeName()+" has been added to Room DB",Toast.LENGTH_LONG).show();
         }else{
-            Toast.makeText(searchRecipeActivity.this,"Recipe already exist in your Favourites List",Toast.LENGTH_LONG).show();
+            Toast.makeText(searchRecipeActivity.this,selectedRecipe.getRecipeName()+" already exists in Room DB",Toast.LENGTH_LONG).show();
         }
         finish();
     }
@@ -216,5 +217,24 @@ public class searchRecipeActivity extends AppCompatActivity implements Networkin
     @Override
     public void finishDBWithRecipeObj(Recipe recipe) {
         //no need of implementation here
+    }
+
+    @Override
+    public void finishFireStoreWithRecipeList(ArrayList<Recipe> recipesList) {
+        //no need of implementation here
+    }
+
+    @Override
+    public void finishFireStoreWithRecipe(Recipe r) {
+        //no need of implementation here
+    }
+
+    @Override
+    public void finishFireStoreWithUpdating(boolean b) {
+    if(b)
+        Toast.makeText(searchRecipeActivity.this,selectedRecipe.getRecipeName()+" has been added to FireStore",Toast.LENGTH_LONG).show();
+    else
+        Toast.makeText(searchRecipeActivity.this,selectedRecipe.getRecipeName()+" already exists in FireStore",Toast.LENGTH_LONG).show();
+    finish();
     }
 }

@@ -75,10 +75,7 @@ public class RecipeListRecyclerAdapter extends RecyclerView.Adapter {
 
             }
         });
-
     }
-
-
     @Override
     public int getItemCount() {
         if( context.getClass() == RecipeDetailsActivity.class){

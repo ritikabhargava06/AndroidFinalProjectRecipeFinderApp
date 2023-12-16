@@ -52,7 +52,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements Database
         else if(((MyApp)getApplication()).getDataSource()==2){
             recipeDetailsFSManager.getOneRecipeFromFireStoreinBGThreadWith(selectedRecipeId);
         }
-        //recipeDetailsDbManager.getOneRecipeInBackgroundThreadWith(selectedRecipeId);
     }
 
     @Override
@@ -83,8 +82,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements Database
         direcAdap.listener = this;
         recipeDirectionsRecycView.setLayoutManager(new LinearLayoutManager(this));
         recipeDirectionsRecycView.setAdapter(direcAdap);
-        //recipeIngredientsText.setText("Ingredients:\n"+selectedRecipe.getIngredientsString());
-        //recipeDirectionsText.setText("Directions:\n"+selectedRecipe.getDirectionsString());
     }
 
     @Override
@@ -115,5 +112,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements Database
         direcAdap.listener = this;
         recipeDirectionsRecycView.setLayoutManager(new LinearLayoutManager(this));
         recipeDirectionsRecycView.setAdapter(direcAdap);
+    }
+
+    @Override
+    public void finishFireStoreWithUpdating(boolean b) {
+        //no need of implementation here
     }
 }
